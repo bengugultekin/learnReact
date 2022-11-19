@@ -1,53 +1,50 @@
 var root = document.getElementById('root');
 
-var template =  <div>
-                    <h1 id="header">Hello World!</h1>
-                    <div>Lorem, ipsum dolor.</div>
-                    <ul>
-                        <li>Lorem, ipsum.</li>
-                        <li>Lorem, ipsum.</li>
-                        <li>Lorem, ipsum.</li>
-                    </ul>
-                </div>;
-
-var number = 0;
-
-var btnOneClassName = "btnRed";
-var btnMinusClassName = "btnBlue";
-
-function addOne() {
-    number++;
-    renderApp();
-    console.log('add one');
+var app = {
+    title: "Todo Application",
+    description: "Lorem, ipsum dolor.",
+    items: []
 }
 
-var minusOne = () => {
-    number--;
-    renderApp();
-    console.log('minus one');
+function onFormSubmit(event) {
+    event.preventDefault();
+
+    var item = event.target.elements.txtItem.value;
+    if(item) {
+        app.items.push(item);
+        event.target.elements.txtItem.value='';
+        render();
+    }
+    console.log('form submitted');
 }
 
+function clearItems() {
+    app.items = [];
+    render();
+}
 
-function renderApp() {
-    var template2 = (
+function render () {
+    var template =  (
         <div>
-            <h1>Number: {number}</h1>
-            <button id="btnPlusOne" className={btnOneClassName} onClick={addOne}>+1</button>
-            <button id="btnMinusOne" className={btnMinusClassName} onClick={minusOne}>-1</button>
+            <h1>{app.title}</h1>
+            <div>{app.description}</div>
+            <ul>
+                <li>Lorem, ipsum.</li>
+                <li>Lorem, ipsum.</li>
+                <li>Lorem, ipsum.</li>
+            </ul>
+            <p><button onClick={clearItems}>Clear Items</button></p>
+            <p>{app.items.length}</p>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="txtItem"/>
+                <button type="submit">Add Item</button>
+            </form>
         </div>
-    );
+);
 
-    ReactDOM.render(template2, root);
+ReactDOM.render(template, root);
 }
-// ReactDOM
-function tick() {
-    var element = (
-        <div>
-            <h2>time is: {new Date().toLocaleTimeString()}</h2>
-        </div>
-    );
-    ReactDOM.render(element,root);
-}
-setInterval(tick, 1000);
+
+render();
 
 //renderApp();

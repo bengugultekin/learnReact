@@ -1,42 +1,42 @@
 "use strict";
 
 var root = document.getElementById('root');
-var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-  id: "header"
-}, "Hello World!"), /*#__PURE__*/React.createElement("div", null, "Lorem, ipsum dolor."), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum.")));
-var number = 0;
-var btnOneClassName = "btnRed";
-var btnMinusClassName = "btnBlue";
-
-function addOne() {
-  number++;
-  renderApp();
-  console.log('add one');
-}
-
-var minusOne = function minusOne() {
-  number--;
-  renderApp();
-  console.log('minus one');
+var app = {
+  title: "Todo Application",
+  description: "Lorem, ipsum dolor.",
+  items: []
 };
 
-function renderApp() {
-  var template2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Number: ", number), /*#__PURE__*/React.createElement("button", {
-    id: "btnPlusOne",
-    className: btnOneClassName,
-    onClick: addOne
-  }, "+1"), /*#__PURE__*/React.createElement("button", {
-    id: "btnMinusOne",
-    className: btnMinusClassName,
-    onClick: minusOne
-  }, "-1"));
-  ReactDOM.render(template2, root);
-} // ReactDOM
+function onFormSubmit(event) {
+  event.preventDefault();
+  var item = event.target.elements.txtItem.value;
 
+  if (item) {
+    app.items.push(item);
+    event.target.elements.txtItem.value = '';
+    render();
+  }
 
-function tick() {
-  var element = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "time is: ", new Date().toLocaleTimeString()));
-  ReactDOM.render(element, root);
+  console.log('form submitted');
 }
 
-setInterval(tick, 1000); //renderApp();
+function clearItems() {
+  app.items = [];
+  render();
+}
+
+function render() {
+  var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, app.title), /*#__PURE__*/React.createElement("div", null, app.description), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum.")), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    onClick: clearItems
+  }, "Clear Items")), /*#__PURE__*/React.createElement("p", null, app.items.length), /*#__PURE__*/React.createElement("form", {
+    onSubmit: onFormSubmit
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    name: "txtItem"
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "submit"
+  }, "Add Item")));
+  ReactDOM.render(template, root);
+}
+
+render(); //renderApp();
