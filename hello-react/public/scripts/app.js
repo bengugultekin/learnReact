@@ -4,31 +4,39 @@ var root = document.getElementById('root');
 var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
   id: "header"
 }, "Hello World!"), /*#__PURE__*/React.createElement("div", null, "Lorem, ipsum dolor."), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum.")));
-var product = {
-  name: "Samsung S10",
-  price: 20000,
-  description: "çok iyi bir telefon..",
-  types: ['red', 'blue']
+var number = 0;
+var btnOneClassName = "btnRed";
+var btnMinusClassName = "btnBlue";
+
+function addOne() {
+  number++;
+  renderApp();
+  console.log('add one');
+}
+
+var minusOne = function minusOne() {
+  number--;
+  renderApp();
+  console.log('minus one');
 };
 
-function formatPrice(p) {
-  return p.price + 'TL';
+function renderApp() {
+  var template2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Number: ", number), /*#__PURE__*/React.createElement("button", {
+    id: "btnPlusOne",
+    className: btnOneClassName,
+    onClick: addOne
+  }, "+1"), /*#__PURE__*/React.createElement("button", {
+    id: "btnMinusOne",
+    className: btnMinusClassName,
+    onClick: minusOne
+  }, "-1"));
+  ReactDOM.render(template2, root);
+} // ReactDOM
+
+
+function tick() {
+  var element = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "time is: ", new Date().toLocaleTimeString()));
+  ReactDOM.render(element, root);
 }
 
-function getDescription(description) {
-  if (description) {
-    return /*#__PURE__*/React.createElement("p", {
-      id: "product-desc"
-    }, "description: ", description);
-  } else {
-    return 'no desc';
-  }
-}
-
-var template2 = /*#__PURE__*/React.createElement("div", {
-  id: "product-details"
-}, /*#__PURE__*/React.createElement("h2", {
-  id: "product-name"
-}, "name: ", product.name ? product.name : 'no name'), product.price && product.price > 0 && /*#__PURE__*/React.createElement("p", null, "price: ", formatPrice(product)), getDescription(product.description), /*#__PURE__*/React.createElement("p", null, product.types.length > 0 ? 'there are options' : 'no options')); // ReactDOM
-
-ReactDOM.render(template2, root);
+setInterval(tick, 1000); //renderApp();
