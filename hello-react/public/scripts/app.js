@@ -1,46 +1,35 @@
 "use strict";
 
-var root = document.getElementById('root');
-var app = {
-  title: "Todo Application",
-  description: "This is a todo application",
-  items: ['learn react', 'work hard']
-};
+var user = {
+  name: 'bengugultekin',
+  email: 'info@bengugultekin.com',
+  city: 'Sakarya',
+  roles: ['admin', 'customer'],
+  getRoles: function getRoles() {
+    var _this = this;
 
-var onFormSubmit = function onFormSubmit(event) {
-  event.preventDefault();
-  var item = event.target.elements.txtItem.value;
+    this.roles.forEach(function (role) {
+      console.log(role);
+      console.log(_this.name);
+    });
+  }
+}; // function ES5 tanımlaması kendine yeni bir scope oluşturduğundan this objesi üst scope bilgileri
+// için kullanılmaz, bunu önlemek için yeni scope tan önce this objesi farklı bir değişkene atanır
+// fakar ES6 arrow function yeni bir scope oluşturmaz 
+// bu sebeple this objesi kullanılabilir
 
-  if (item) {
-    app.items.push(item);
-    event.target.elements.txtItem.value = '';
-    render();
+console.log(user.name);
+user.getRoles();
+
+var addES5 = function addES5() {
+  var total = 0;
+
+  for (var i = 0; i < arguments.length; i++) {
+    total += arguments[i];
   }
 
-  console.log('form submitted');
+  return total;
 };
 
-var clearItems = function clearItems() {
-  app.items = [];
-  render();
-};
-
-var render = function render() {
-  var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, app.title), /*#__PURE__*/React.createElement("div", null, app.description), /*#__PURE__*/React.createElement("ul", null, app.items.map(function (item, index) {
-    return /*#__PURE__*/React.createElement("li", {
-      key: index
-    }, item);
-  })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
-    onClick: clearItems
-  }, "Clear Items")), /*#__PURE__*/React.createElement("p", null, app.items.length), /*#__PURE__*/React.createElement("form", {
-    onSubmit: onFormSubmit
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    name: "txtItem"
-  }), /*#__PURE__*/React.createElement("button", {
-    type: "submit"
-  }, "Add Item")));
-  ReactDOM.render(template, root);
-};
-
-render(); //renderApp();
+console.log(addES5(5, 10, 20, 30));
+console.log(addES5(5, 10, 20, 30, 40)); // arow functionlarda yeni scope oluşmadığından argüman objesi kullanılmaz
