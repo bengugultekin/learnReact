@@ -1,15 +1,15 @@
-var root = document.getElementById('root');
+const root = document.getElementById('root');
 
-var app = {
+const app = {
     title: "Todo Application",
     description: "Lorem, ipsum dolor.",
-    items: []
+    items: ['value 1', 'value 2']
 }
 
 function onFormSubmit(event) {
     event.preventDefault();
 
-    var item = event.target.elements.txtItem.value;
+    let item = event.target.elements.txtItem.value;
     if(item) {
         app.items.push(item);
         event.target.elements.txtItem.value='';
@@ -24,15 +24,19 @@ function clearItems() {
 }
 
 function render () {
-    var template =  (
+    let template =  (
         <div>
             <h1>{app.title}</h1>
             <div>{app.description}</div>
-            <ul>
-                <li>Lorem, ipsum.</li>
-                <li>Lorem, ipsum.</li>
-                <li>Lorem, ipsum.</li>
-            </ul>
+            {
+                <ul>
+                    {
+                        app.items.map((item,index) => {
+                       return <li key={index}>{item}</li>
+                    })
+                    }
+                </ul>
+            }
             <p><button onClick={clearItems}>Clear Items</button></p>
             <p>{app.items.length}</p>
             <form onSubmit={onFormSubmit}>
