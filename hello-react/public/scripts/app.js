@@ -1,18 +1,46 @@
 "use strict";
 
-// var nameVar = 'Bengurlok';
-// nameVar = 'Gultekin';
-// console.log(nameVar);
-//let nameLet = 'gübs';
-//let nameLet = 'naber';
-// const -> bir kere atanır, uygulama boyunca değişmeyen bir sabittir.
-// SCOPE KAVRAMI -- değişkenlere ulaşma mantığı
-var age = 25;
+var root = document.getElementById('root');
+var app = {
+  title: "Todo Application",
+  description: "This is a todo application",
+  items: ['learn react', 'work hard']
+};
 
-function getAge() {
-  var name = 'Ada';
-  console.log('function scope: ', age, name);
-}
+var onFormSubmit = function onFormSubmit(event) {
+  event.preventDefault();
+  var item = event.target.elements.txtItem.value;
 
-console.log(age);
-getAge();
+  if (item) {
+    app.items.push(item);
+    event.target.elements.txtItem.value = '';
+    render();
+  }
+
+  console.log('form submitted');
+};
+
+var clearItems = function clearItems() {
+  app.items = [];
+  render();
+};
+
+var render = function render() {
+  var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, app.title), /*#__PURE__*/React.createElement("div", null, app.description), /*#__PURE__*/React.createElement("ul", null, app.items.map(function (item, index) {
+    return /*#__PURE__*/React.createElement("li", {
+      key: index
+    }, item);
+  })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    onClick: clearItems
+  }, "Clear Items")), /*#__PURE__*/React.createElement("p", null, app.items.length), /*#__PURE__*/React.createElement("form", {
+    onSubmit: onFormSubmit
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    name: "txtItem"
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "submit"
+  }, "Add Item")));
+  ReactDOM.render(template, root);
+};
+
+render(); //renderApp();

@@ -2,11 +2,11 @@ const root = document.getElementById('root');
 
 const app = {
     title: "Todo Application",
-    description: "This is a todo application",
-    items: ['learn react', 'work hard']
+    description: "ToDo Application",
+    items: ['value 1', 'value 2']
 }
 
-const onFormSubmit = (event) => {
+function onFormSubmit(event) {
     event.preventDefault();
 
     let item = event.target.elements.txtItem.value;
@@ -18,12 +18,12 @@ const onFormSubmit = (event) => {
     console.log('form submitted');
 }
 
-const clearItems = () => {
+function clearItems() {
     app.items = [];
     render();
 }
 
-const render = () => {
+function render () {
     let template =  (
         <div>
             <h1>{app.title}</h1>
@@ -44,11 +44,10 @@ const render = () => {
                 <button type="submit">Add Item</button>
             </form>
         </div>
-    );
+);
 
-    ReactDOM.render(template, root);
+ReactDOM.render(template, root);
 }
-
 
 render();
 
