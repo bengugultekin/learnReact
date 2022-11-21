@@ -39,7 +39,17 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
   _createClass(ToDoApp, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement(ToDoList, null), /*#__PURE__*/React.createElement(Action, null));
+      var app = {
+        title: "Todo Application",
+        description: "This is a todo application",
+        items: ['learn react', 'work hard']
+      };
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        title: app.title,
+        description: app.description
+      }), /*#__PURE__*/React.createElement(ToDoList, {
+        items: app.items
+      }), /*#__PURE__*/React.createElement(Action, null));
     }
   }]);
 
@@ -60,7 +70,8 @@ var Header = /*#__PURE__*/function (_React$Component2) {
   _createClass(Header, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "ToDo Application"), /*#__PURE__*/React.createElement("div", null, "Lorem ipsum dolor sit amet."));
+      console.log(this.props);
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("div", null, this.props.description));
     }
   }]);
 
@@ -81,7 +92,12 @@ var ToDoList = /*#__PURE__*/function (_React$Component3) {
   _createClass(ToDoList, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ToDoItem, null), /*#__PURE__*/React.createElement(ToDoItem, null), /*#__PURE__*/React.createElement(ToDoItem, null));
+      return /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
+        return /*#__PURE__*/React.createElement(ToDoItem, {
+          key: index,
+          item: item
+        });
+      }));
     }
   }]);
 
@@ -102,7 +118,7 @@ var ToDoItem = /*#__PURE__*/function (_React$Component4) {
   _createClass(ToDoItem, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, "Todo Item");
+      return /*#__PURE__*/React.createElement("li", null, this.props.item);
     }
   }]);
 
