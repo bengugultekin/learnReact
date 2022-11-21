@@ -1,35 +1,53 @@
 "use strict";
 
-var user = {
-  name: 'bengugultekin',
-  email: 'info@bengugultekin.com',
-  city: 'Sakarya',
-  roles: ['admin', 'customer'],
-  getRoles: function getRoles() {
-    var _this = this;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    this.roles.forEach(function (role) {
-      console.log(role);
-      console.log(_this.name);
-    });
-  }
-}; // function ES5 tanımlaması kendine yeni bir scope oluşturduğundan this objesi üst scope bilgileri
-// için kullanılmaz, bunu önlemek için yeni scope tan önce this objesi farklı bir değişkene atanır
-// fakar ES6 arrow function yeni bir scope oluşturmaz 
-// bu sebeple this objesi kullanılabilir
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-console.log(user.name);
-user.getRoles();
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-var addES5 = function addES5() {
-  var total = 0;
+// class - ES5
+var PersonES5 = function PersonES5() {}; // class - ES6
 
-  for (var i = 0; i < arguments.length; i++) {
-    total += arguments[i];
+
+var PersonES6 = /*#__PURE__*/function () {
+  function PersonES6() {
+    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Guest';
+    var year = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1900;
+
+    _classCallCheck(this, PersonES6);
+
+    this.name = name;
+    this.year = year;
+    console.log('constructor çalıştı.');
   }
 
-  return total;
-};
+  _createClass(PersonES6, [{
+    key: "calculateAge",
+    value: function calculateAge() {
+      return new Date().getFullYear() - this.year;
+    }
+  }, {
+    key: "greeting",
+    value: function greeting(text) {
+      return "".concat(text, ", My name is ").concat(this.name);
+    }
+  }]);
 
-console.log(addES5(5, 10, 20, 30));
-console.log(addES5(5, 10, 20, 30, 40)); // arow functionlarda yeni scope oluşmadığından argüman objesi kullanılmaz
+  return PersonES6;
+}(); // Nesne - object
+
+
+var pES5 = new PersonES5();
+console.log(pES5);
+var pES61 = new PersonES6("Bengu", 1998);
+var pES62 = new PersonES6("Onur", 1989);
+var pES63 = new PersonES6();
+console.log(pES61);
+console.log(pES62);
+console.log(pES61.calculateAge());
+console.log(pES62.calculateAge());
+console.log(pES63.calculateAge());
+console.log(pES61.greeting('Hello'));
+console.log(pES62.greeting('Good morning'));
+console.log(pES63.greeting('Welcome'));
