@@ -22,9 +22,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-//const Header = function () {
-//    return <h1>Hello React</h1>
-//}
 var ToDoApp = /*#__PURE__*/function (_React$Component) {
   _inherits(ToDoApp, _React$Component);
 
@@ -127,107 +124,46 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
   return ToDoApp;
 }(React.Component);
 
-var Header = /*#__PURE__*/function (_React$Component2) {
-  _inherits(Header, _React$Component2);
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), /*#__PURE__*/React.createElement("div", null, props.description));
+};
 
-  var _super2 = _createSuper(Header);
+var ToDoList = function ToDoList(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, props.items.map(function (item, index) {
+    return /*#__PURE__*/React.createElement(ToDoItem, {
+      deleteItem: props.deleteItem,
+      key: index,
+      item: item
+    });
+  })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.clearItems
+  }, "Clear Items")));
+};
 
-  function Header() {
-    _classCallCheck(this, Header);
-
-    return _super2.apply(this, arguments);
-  }
-
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      console.log(this.props);
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("div", null, this.props.description));
+var ToDoItem = function ToDoItem(props) {
+  return /*#__PURE__*/React.createElement("li", null, props.item, /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      props.deleteItem(props.item);
     }
-  }]);
+  }, " x"));
+};
 
-  return Header;
-}(React.Component);
+var Action = /*#__PURE__*/function (_React$Component2) {
+  _inherits(Action, _React$Component2);
 
-var ToDoList = /*#__PURE__*/function (_React$Component3) {
-  _inherits(ToDoList, _React$Component3);
-
-  var _super3 = _createSuper(ToDoList);
-
-  function ToDoList() {
-    _classCallCheck(this, ToDoList);
-
-    return _super3.apply(this, arguments);
-  }
-
-  _createClass(ToDoList, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
-        return /*#__PURE__*/React.createElement(ToDoItem, {
-          deleteItem: _this2.props.deleteItem,
-          key: index,
-          item: item
-        });
-      })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.clearItems
-      }, "Clear Items")));
-    }
-  }]);
-
-  return ToDoList;
-}(React.Component);
-
-var ToDoItem = /*#__PURE__*/function (_React$Component4) {
-  _inherits(ToDoItem, _React$Component4);
-
-  var _super4 = _createSuper(ToDoItem);
-
-  function ToDoItem(props) {
-    var _this3;
-
-    _classCallCheck(this, ToDoItem);
-
-    _this3 = _super4.call(this, props);
-    _this3.deleteItem = _this3.deleteItem.bind(_assertThisInitialized(_this3));
-    return _this3;
-  }
-
-  _createClass(ToDoItem, [{
-    key: "deleteItem",
-    value: function deleteItem() {
-      this.props.deleteItem(this.props.item);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, this.props.item, /*#__PURE__*/React.createElement("button", {
-        onClick: this.deleteItem
-      }, " x"));
-    }
-  }]);
-
-  return ToDoItem;
-}(React.Component);
-
-var Action = /*#__PURE__*/function (_React$Component5) {
-  _inherits(Action, _React$Component5);
-
-  var _super5 = _createSuper(Action);
+  var _super2 = _createSuper(Action);
 
   function Action(props) {
-    var _this4;
+    var _this2;
 
     _classCallCheck(this, Action);
 
-    _this4 = _super5.call(this, props);
-    _this4.onFormSubmit = _this4.onFormSubmit.bind(_assertThisInitialized(_this4));
-    _this4.state = {
+    _this2 = _super2.call(this, props);
+    _this2.onFormSubmit = _this2.onFormSubmit.bind(_assertThisInitialized(_this2));
+    _this2.state = {
       error: ''
     };
-    return _this4;
+    return _this2;
   }
 
   _createClass(Action, [{

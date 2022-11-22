@@ -1,7 +1,3 @@
-//const Header = function () {
-//    return <h1>Hello React</h1>
-//}
-
 class ToDoApp extends React.Component{
 
     constructor(props) {
@@ -81,53 +77,39 @@ class ToDoApp extends React.Component{
     }
 }
 
-class Header extends React.Component {
-    render() {
-        console.log(this.props);
-      return (
+const Header = (props) => {
+    return(
         <div>
-          <h1>{this.props.title}</h1>
-          <div>{this.props.description}</div>
+            <h1>{props.title}</h1>
+            <div>{props.description}</div>
         </div>
-      );
-    }
+    );
 }
 
-class ToDoList extends React.Component{    
-    render() {
-        return (
-            <div>
-                <ul>
-                    {
-                        this.props.items.map((item,index) =>
-                            <ToDoItem deleteItem={this.props.deleteItem} key={index} item={item}/>
-                        )
-                    }
-                </ul>
-                <p>
-                    <button onClick={this.props.clearItems}>Clear Items</button>
-                </p>
-            </div>
-        );
-    }
+const ToDoList = (props) => {
+    return (
+        <div>
+            <ul>
+                {
+                    props.items.map((item,index) =>
+                        <ToDoItem deleteItem={props.deleteItem} key={index} item={item}/>
+                    )
+                }
+            </ul>
+            <p>
+                <button onClick={props.clearItems}>Clear Items</button>
+            </p>
+        </div>
+    );
 }
 
-class ToDoItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.deleteItem = this.deleteItem.bind(this);
-    }
-    deleteItem() {
-        this.props.deleteItem(this.props.item)
-    }
-    render() {
-        return(
-            <li>
-                {this.props.item}
-                <button onClick={this.deleteItem}> x</button>
-            </li>
-        );
-    }
+const ToDoItem = (props) => {
+    return(
+        <li>
+            {props.item}
+            <button onClick={() => {props.deleteItem(props.item)} }> x</button>
+        </li>
+    );
 }
 
 class Action extends React.Component {
