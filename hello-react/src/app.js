@@ -8,6 +8,7 @@ class ToDoApp extends React.Component{
         super(props);
         this.clearItems = this.clearItems.bind(this);
         this.addItem = this.addItem.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
         this.state = {
             items: ['learn React', 'WORK hard', 'eat something']
         }
@@ -32,6 +33,17 @@ class ToDoApp extends React.Component{
         // concat iki diziyi arka arkaya birleştiren fonk. tek eleman da gönderilebilir
     }
 
+    deleteItem(item) {
+        this.setState((prevState) => {
+            const arr = prevState.items.filter((i) => {
+                return item != i
+            })
+            return {
+                items: arr
+            }
+        })
+    }
+
     render() {
         const app = {
             title: "Todo Application",
@@ -40,7 +52,7 @@ class ToDoApp extends React.Component{
         return (
             <div>
                 <Header title={app.title} description={app.description}/>
-                <ToDoList items={this.state.items} clearItems={this.clearItems}/>
+                <ToDoList items={this.state.items} clearItems={this.clearItems} deleteItem={this.deleteItem}/>
                 <Action addItem={this.addItem}/>            
             </div>
         );
@@ -66,7 +78,7 @@ class ToDoList extends React.Component{
                 <ul>
                     {
                         this.props.items.map((item,index) =>
-                            <ToDoItem key={index} item={item}/>
+                            <ToDoItem deleteItem={this.props.deleteItem} key={index} item={item}/>
                         )
                     }
                 </ul>
@@ -79,9 +91,19 @@ class ToDoList extends React.Component{
 }
 
 class ToDoItem extends React.Component {
+    constructor(props) {
+        super(props);
+        this.deleteItem = this.deleteItem.bind(this);
+    }
+    deleteItem() {
+        this.props.deleteItem(this.props.item)
+    }
     render() {
         return(
-            <li>{this.props.item}</li>
+            <li>
+                {this.props.item}
+                <button onClick={this.deleteItem}> x</button>
+            </li>
         );
     }
 }
