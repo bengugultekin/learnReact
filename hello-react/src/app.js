@@ -3,16 +3,30 @@
 //}
 
 class ToDoApp extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.clearItems = this.clearItems.bind(this);
+        this.state = {
+            items: ['learn React', 'WORK hard', 'eat something']
+        }
+    }
+
+    clearItems() {
+        this.setState({
+            items: []
+        });
+    }
+
     render() {
         const app = {
             title: "Todo Application",
-            description: "This is a todo application",
-            items: ['learn react', 'work hard']
+            description: "This is a todo application"
         }
         return (
             <div>
                 <Header title={app.title} description={app.description}/>
-                <ToDoList items={app.items}/>
+                <ToDoList items={this.state.items} clearItems={this.clearItems}/>
                 <Action />            
             </div>
         );
@@ -31,15 +45,7 @@ class Header extends React.Component {
     }
 }
 
-class ToDoList extends React.Component{
-    constructor(props) {
-        super(props);
-        this.clearItems = this.clearItems.bind(this);
-    }
-    clearItems() {
-        console.log(this.props.items);
-        console.log('clear items');
-    }
+class ToDoList extends React.Component{    
     render() {
         return (
             <div>
@@ -51,7 +57,7 @@ class ToDoList extends React.Component{
                     }
                 </ul>
                 <p>
-                    <button onClick={this.clearItems}>Clear Items</button>
+                    <button onClick={this.props.clearItems}>Clear Items</button>
                 </p>
             </div>
         );
