@@ -46,6 +46,31 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(ToDoApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var json = localStorage.getItem('items');
+      var items = JSON.parse(json);
+
+      if (items) {
+        this.setState({
+          items: items
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.items.length !== this.state.items.length) {
+        var json = JSON.stringify(this.state.items);
+        localStorage.setItem('items', json);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      console.log('component silindi');
+    }
+  }, {
     key: "clearItems",
     value: function clearItems() {
       this.setState({

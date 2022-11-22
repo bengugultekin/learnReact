@@ -15,6 +15,28 @@ class ToDoApp extends React.Component{
 
     }
 
+    componentDidMount() {
+        const json = localStorage.getItem('items');
+        const items = JSON.parse(json);
+
+        if(items) {
+            this.setState({
+                items: items
+            })
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.items.length !== this.state.items.length) {
+            const json = JSON.stringify(this.state.items);
+            localStorage.setItem('items', json);
+        }
+    }
+
+    componentWillUnmount() {
+        console.log('component silindi');
+    }
+
     clearItems() {
         this.setState({
             items: []
