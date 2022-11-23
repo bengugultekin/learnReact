@@ -73,10 +73,18 @@ export default class ToDoApp extends React.Component{
             description: "This is a todo application"
         }
         return (
-            <div>
-                <Header title={app.title} description={app.description}/>
-                <ToDoList items={this.state.items} clearItems={this.clearItems} deleteItem={this.deleteItem}/>
-                <Action addItem={this.addItem}/>            
+            <div className="container my-5">
+                <div className="card">
+                    <div className="card-header">
+                        <Header title={app.title} description={app.description}/>
+                    </div>
+                    <div className="card-body">
+                        <ToDoList items={this.state.items} clearItems={this.clearItems} deleteItem={this.deleteItem}/>
+                    </div>
+                    <div className="card-footer">
+                        <Action addItem={this.addItem}/>
+                    </div>
+                </div>            
             </div>
         );
     }

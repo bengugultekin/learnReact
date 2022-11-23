@@ -21,10 +21,15 @@ export default class Action extends React.Component {
     render() {
         return(
             <div>
-                {this.state.error && <p>{this.state.error}</p>}
+                {this.state.error && <p className="text-danger">{this.state.error}</p>}
                 <form onSubmit={this.onFormSubmit}>
-                    <input type="text" name="txtItem" />
-                    <button type="submit">Add Item</button>
+                    <div className="input-group">
+                        <input className="form-control" type="text" name="txtItem" />
+                        <div className="input-group-append">
+                            <button className="btn btn-primary" type="submit">Add Item</button>
+                        </div>                        
+                    </div>
+                    
                 </form>
             </div>
         );    

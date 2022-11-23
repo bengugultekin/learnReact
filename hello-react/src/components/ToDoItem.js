@@ -2,9 +2,9 @@ import React from "react";
 
 const ToDoItem = (props) => {
     return(
-        <li>
+        <li className="list-group-item">
             {props.item}
-            <button onClick={() => {props.deleteItem(props.item)} }> x</button>
+            <button className="btn btn-danger btn-sm float-right" onClick={() => {props.deleteItem(props.item)} }> x</button>
         </li>
     );
 }
