@@ -1,9 +1,11 @@
 import React, { Component,Fragment } from 'react'
+import { BrowserRouter, Route, Switch, Link, NavLink } from "react-router-dom";
 import Navbar from './Navbar'
 import Users from './Users'
 import Axios from 'axios'
 import Search from './Search'
 import Alert from './Alert'
+import About from './About';
 
 export class App extends Component {
     constructor(props) {
@@ -52,15 +54,26 @@ export class App extends Component {
     }
     render() {
         return (
-            <Fragment>
+            <BrowserRouter>
                 <Navbar />
                 <Alert alert = {this.state.alert} clearAlert={this.clearAlert}/>
-                <Search searchUsers={this.searchUsers} 
-                        clearUsers={this.clearUsers} 
-                        showClearButton = {this.state.users.length > 0 ? true:false}
-                        setAlert={this.setAlert}/>
-                <Users users = {this.state.users} loading={this.state.loading}/>
-            </Fragment>
+                <Switch>
+                    <Route exact path="/" render={
+                        props => (
+                            <>
+                                <Search searchUsers={this.searchUsers} 
+                                        clearUsers={this.clearUsers} 
+                                        showClearButton = {this.state.users.length > 0 ? true:false}
+                                        setAlert={this.setAlert}/>
+                                <Users users = {this.state.users} loading={this.state.loading}/>
+                            </>
+                        )
+                    } />
+
+                    <Route path="/about" component={About} />
+
+                </Switch>
+            </BrowserRouter>
         )
   }
 }
