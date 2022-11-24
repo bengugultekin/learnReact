@@ -3,15 +3,19 @@ import Navbar from './Navbar'
 import Users from './Users'
 import Axios from 'axios'
 import Search from './Search'
+import Alert from './Alert'
 
 export class App extends Component {
     constructor(props) {
         super(props);
         this.searchUsers = this.searchUsers.bind(this);
         this.clearUsers = this.clearUsers.bind(this);
+        this.setAlert = this.setAlert.bind(this);
+        this.clearAlert = this.clearAlert.bind(this);
         this.state = {
             loading: false,
-            users: []
+            users: [],
+            alert: null
         }
     }
     componentDidMount() {
@@ -30,22 +34,34 @@ export class App extends Component {
         .get(`https://api.github.com/search/users?q=${keyword}`)
         .then(response => this.setState({users: response.data.items, loading:false}));
         }, 1000);
-        
     }
 
     clearUsers() {
         this.setState({users: []});
     }
-  render() {
-    return (
-        <Fragment>
-            <Navbar />
-            <Search searchUsers={this.searchUsers} 
-                    clearUsers={this.clearUsers} 
-                    showClearButton = {this.state.users.length > 0 ? true:false}/>
-            <Users users = {this.state.users} loading={this.state.loading}/>
-        </Fragment>
-    )
+
+    setAlert(msg, type){
+        this.setState({alert: {msg, type}});
+        setTimeout(() => {
+            this.setState({alert: null});
+        }, 3000)
+    }
+
+    clearAlert(){
+        this.setState({alert: null});
+    }
+    render() {
+        return (
+            <Fragment>
+                <Navbar />
+                <Alert alert = {this.state.alert} clearAlert={this.clearAlert}/>
+                <Search searchUsers={this.searchUsers} 
+                        clearUsers={this.clearUsers} 
+                        showClearButton = {this.state.users.length > 0 ? true:false}
+                        setAlert={this.setAlert}/>
+                <Users users = {this.state.users} loading={this.state.loading}/>
+            </Fragment>
+        )
   }
 }
 

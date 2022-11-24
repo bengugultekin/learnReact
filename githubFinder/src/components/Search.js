@@ -16,8 +16,15 @@ export class Search extends Component {
     }
     onSubmit(event) {
         event.preventDefault();
-        this.props.searchUsers(this.state.keyword);
-        this.setState({keyword: ''});
+        if(this.state.keyword === '') {
+            this.props.setAlert('Lütfen bir anahtar kelime giriniz..', 'danger');
+            console.log("null");
+
+        } else {
+            this.props.searchUsers(this.state.keyword);
+            this.setState({keyword: ''});
+            
+        }
     }
     render() {
         return (
