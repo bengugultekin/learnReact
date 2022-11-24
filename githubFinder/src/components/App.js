@@ -6,6 +6,7 @@ import Axios from 'axios'
 import Search from './Search'
 import Alert from './Alert'
 import About from './About';
+import UserDetails from './UserDetails';
 
 export class App extends Component {
     constructor(props) {
@@ -14,9 +15,11 @@ export class App extends Component {
         this.clearUsers = this.clearUsers.bind(this);
         this.setAlert = this.setAlert.bind(this);
         this.clearAlert = this.clearAlert.bind(this);
+        this.getUser = this.getUser.bind(this);
         this.state = {
             loading: false,
             users: [],
+            user: {},
             alert: null
         }
     }
@@ -35,6 +38,15 @@ export class App extends Component {
             Axios
         .get(`https://api.github.com/search/users?q=${keyword}`)
         .then(response => this.setState({users: response.data.items, loading:false}));
+        }, 1000);
+    }
+
+    getUser(username) {
+        this.setState({loading: true});
+        setTimeout(() => {
+            Axios
+        .get(`https://api.github.com/users/${username}`)
+        .then(response => this.setState({user: response.data, loading:false}));
         }, 1000);
     }
 
@@ -71,6 +83,9 @@ export class App extends Component {
                     } />
 
                     <Route path="/about" component={About} />
+                    <Route path="/users/:login" render={props => (
+                        <UserDetails {...props} getUser= {this.getUser} user={this.state.user}/>
+                        )}/>
 
                 </Switch>
             </BrowserRouter>
