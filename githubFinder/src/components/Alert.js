@@ -1,8 +1,6 @@
 import React from 'react'
 
 const Alert = (props) => {
-
-    console.log(props);
     return (
         props.alert !== null && (
             <div className='container my-2'>

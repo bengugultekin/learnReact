@@ -11,7 +11,7 @@ class User extends Component {
                 <div className='card-body'>
                     <h5 className="card-title text-center">Username: {login}</h5>
                     <Link to={`/users/${login}`} className="btn btn-primary btn-sm btn-block">Show Details</Link>
-                    <a href={html_url} className="btn btn-primary btn-sm btn-block">Go Github</a>
+                    {/* <a href={html_url} className="btn btn-primary btn-sm btn-block">Go Github</a> */}
                 </div>
             </div>
         </div>

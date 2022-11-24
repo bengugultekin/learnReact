@@ -18,7 +18,6 @@ export class Search extends Component {
         event.preventDefault();
         if(this.state.keyword === '') {
             this.props.setAlert('Lütfen bir anahtar kelime giriniz..', 'danger');
-            console.log("null");
 
         } else {
             this.props.searchUsers(this.state.keyword);
