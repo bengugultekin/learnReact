@@ -3,7 +3,7 @@
 
 // React -> 16.8: function component + hook => stateful function component
 
-import React, { useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 
 // class App extends Component {
@@ -13,6 +13,14 @@ import ReactDOM from 'react-dom';
 //             count: 0
 //         }
 //     }
+//     componentDidMount() {
+//         console.log('componenDidMount');
+//     }
+
+//     componentDidUpdate() {
+//         console.log('componenDidUpdate');
+//     }
+
 //     render() {
 //         return (
 //             <div>
@@ -27,6 +35,35 @@ import ReactDOM from 'react-dom';
 const App = (props) => {
     const [count, setCount] = useState(props.count);
     const [text, setText] = useState(props.text);
+
+    //componentDidUpdate() karşılık gelen -> useEffect -text için [text]
+    useEffect(() => {
+        console.log('text');
+    }, [text]);
+
+    //componentDidUpdate() karşılık gelen -> useEffect -count için [count]
+    useEffect(() => {
+        console.log('count');
+
+        localStorage.setItem('count', count);
+    }, [count]);
+
+    //componentDidMount() karşılık gelen -> useEffect,[]
+    useEffect(() => {
+        console.log('componentDidMount');
+
+        const countData = localStorage.getItem('count');
+
+        if(countData) {
+            setCount(Number(countData))
+        }
+    }, []);
+
+    //componentDidMount() - componentDidUpdate() karşılık gelen -> useEffect
+    useEffect(() => {
+        console.log('usEffect (componentDidMount - componentDidUpdate)')
+    });
+
     return(
         <div>
             <p>Butona {count} kez tıkladınız</p>
@@ -45,4 +82,4 @@ App.defaultProps = {
     text: 'deneme'
 }
 
-ReactDOM.render(<App count={7}/>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
