@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import NoteContext from "../context/noteContext"
 
-const AddNoteForm = ({dispatch}) => {
-
+const AddNoteForm = () => {
+    const {dispatch} =  useContext(NoteContext)
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
 
@@ -17,6 +18,7 @@ const AddNoteForm = ({dispatch}) => {
             setBody('')
         }
     }
+
 
     return (
         <form onSubmit={addNote}>
