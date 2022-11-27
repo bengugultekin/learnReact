@@ -16,18 +16,18 @@ const App = () => {
     const [alert, setAlert] = useState(null)
     const [repos, setRepos] = useState([])
 
-    useEffect(() => {
-        setLoading(true);
-        console.log("getting users");
-        setTimeout(() => {
-            Axios
-        .get(`https://api.github.com/users`)
-        .then(response => {
-            setUsers(response.data);
-            setLoading(false);
-        });
-        }, 1000);
-    }, [])
+    // useEffect(() => {
+    //     setLoading(true);
+    //     console.log("getting users");
+    //     setTimeout(() => {
+    //         Axios
+    //     .get(`https://api.github.com/users`)
+    //     .then(response => {
+    //         setUsers(response.data);
+    //         setLoading(false);
+    //     });
+    //     }, 1000);
+    // }, [])
 
     const getUser = (username) => {
         setLoading(true);
@@ -80,7 +80,7 @@ const App = () => {
                             <Search clearUsers={clearUsers} 
                                     showClearButton = {users.length > 0 ? true:false}
                                     setAlert={showAlert}/>
-                            <Users users = {users} loading={loading}/>
+                            <Users/>
                         </>
                     )
                 } />

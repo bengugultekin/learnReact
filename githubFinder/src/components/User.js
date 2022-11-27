@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
-const User = ({users}) => {
-  const {login, avatar_url, html_url} = users;
+class User extends Component {
+  render() {
+    const {login, avatar_url, html_url} = this.props.user;
     return (
         <div className="col-md-4 col-sm-6 col-lg-3">
             <div className="card mt-2">
@@ -15,6 +16,7 @@ const User = ({users}) => {
             </div>
         </div>
     )
+  }
 }
 
 export default User

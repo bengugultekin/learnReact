@@ -5,7 +5,8 @@ import GithubContext from '../context/githubContext'
 
 const Users = () => {
   const githubContext = useContext(GithubContext);
-  const { users, loading} = githubContext
+  const {users, loading} = githubContext
+
   if(loading) {
     return <Loading />
   } else {
@@ -18,7 +19,7 @@ const Users = () => {
             </div>
           </div>
       )
-  }
+  }  
 }
 
 export default Users
