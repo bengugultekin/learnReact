@@ -10,36 +10,9 @@ import UserDetails from './UserDetails';
 import GithubState from '../context/githubState';
 
 const App = () => {
-    const [users, setUsers] = useState([])
-    const [user, setUser] = useState([])
     const [loading, setLoading] = useState(false)
     const [alert, setAlert] = useState(null)
     const [repos, setRepos] = useState([])
-
-    // useEffect(() => {
-    //     setLoading(true);
-    //     console.log("getting users");
-    //     setTimeout(() => {
-    //         Axios
-    //     .get(`https://api.github.com/users`)
-    //     .then(response => {
-    //         setUsers(response.data);
-    //         setLoading(false);
-    //     });
-    //     }, 1000);
-    // }, [])
-
-    const getUser = (username) => {
-        setLoading(true);
-        setTimeout(() => {
-            Axios
-        .get(`https://api.github.com/users/${username}`)
-        .then(response => {
-            setUser(response.data);
-            setLoading(false);
-        });
-        }, 1000);
-    }
 
     const getUserRepos = (username) => {
         setLoading(true);
@@ -53,9 +26,7 @@ const App = () => {
         }, 1000);
     }
 
-    const clearUsers = () => {
-        setUsers([]);
-    }
+    
 
     const showAlert = (msg, type) => {
         setAlert({msg, type})
@@ -77,10 +48,9 @@ const App = () => {
                 <Route exact path="/" render={
                     props => (
                         <>
-                            <Search clearUsers={clearUsers} 
-                                    showClearButton = {users.length > 0 ? true:false}
+                            <Search 
                                     setAlert={showAlert}/>
-                            <Users/>
+                            <Users />
                         </>
                     )
                 } />
@@ -89,9 +59,6 @@ const App = () => {
                 <Route path="/users/:login" render={props => (
                     <UserDetails 
                     {...props} 
-                    getUser= {getUser} 
-                    user={user} 
-                    loading={loading}
                     getUserRepos={getUserRepos}
                     repos = {repos}/>
                     )}/>

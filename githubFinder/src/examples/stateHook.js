@@ -36,6 +36,22 @@ const App = (props) => {
     const [count, setCount] = useState(props.count);
     const [text, setText] = useState(props.text);
 
+    /**
+ * @param {string[]} operations
+ * @return {number}
+ */
+    var finalValueAfterOperations = function(operations) {
+        let sum = 0;
+        for(let i=0; i<operations.legth; i++) {
+            console.log(operations[i]);
+            if(operations[i] === "++X" || operations[i] === "X++"){
+                sum+=1;
+            } else {
+                sum-=1;
+            }
+        }
+    };
+
     //componentDidUpdate() karşılık gelen -> useEffect -text için [text]
     useEffect(() => {
         console.log('text');
@@ -69,7 +85,7 @@ const App = (props) => {
             <p>Butona {count} kez tıkladınız</p>
             <button onClick={() => setCount(count + 1)}> +1 </button>
             <button onClick={() => setCount(count - 1)}> -1 </button>
-            <button onClick={() => setCount(props.count)}> reset </button>
+            <button onClick={() => {setCount(props.count);}}> reset </button>
 
             <p>girilen text: {text}</p>
             <input type="text" value={text} onChange={(e) => setText(e.target.value)} />

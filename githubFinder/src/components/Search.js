@@ -1,8 +1,8 @@
 import React, {useContext, useState} from 'react'
 import GithubContext from '../context/githubContext';
 
-const Search = ({setAlert, clearUsers, showClearButton}) => {
-    const githubContext = useContext(GithubContext);
+const Search = ({setAlert}) => {
+    const {searchUsers, clearUsers, users} = useContext(GithubContext);
     const [keyword, setKeyword] = useState('');
 
     const onChange = (event) => {
@@ -14,7 +14,7 @@ const Search = ({setAlert, clearUsers, showClearButton}) => {
             setAlert('Lütfen bir anahtar kelime giriniz..', 'danger');
 
         } else {
-            githubContext.searchUsers(keyword);
+            searchUsers(keyword);
             setKeyword('');
             
         }
@@ -30,7 +30,7 @@ const Search = ({setAlert, clearUsers, showClearButton}) => {
                 </div>
             </form>
             {
-                showClearButton && 
+                users.length>0 && 
                 <button onClick={clearUsers} className="btn btn-secondary btn-sm btn-block mt-2">Clear Results</button>
             }
         </div>
